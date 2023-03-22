@@ -23,19 +23,12 @@ PAdptArray CreateAdptArray(COPY_FUNC copy, DEL_FUNC del, PRINT_FUNC print) {
 		printf("memory error");
 		return NULL;
 	}
-	//initilizing an empty array
-	adpt_arr->arr = (PElement)calloc(4, sizeof(PElement));
-	if (adpt_arr->arr == NULL) {
-		printf("memory error");   
-		adpt_arr->size = -1; 
-		return NULL;
-  	} else {
-    		adpt_arr->size = 4;
-	}
-
+	
+	adpt_arr->arr= NULL;
 	adpt_arr->copy = copy;
 	adpt_arr->del = del;
 	adpt_arr->print = print;
+	adpt_arr->size = 0;
 
   return adpt_arr;
 }
@@ -51,6 +44,18 @@ void DeleteAdptArray(PAdptArray adpt_arr) {
 }
 
 Result SetAdptArrayAt(PAdptArray adpt_arr, int index, PElement p_element) {
+	if(adpt_arr->size==0){
+		//initilizing an empty array
+		adpt_arr->arr = (PElement)calloc(index+1, sizeof(PElement));
+		if (adpt_arr->arr == NULL) {
+			printf("memory error");   
+			adpt_arr->size = -1; 
+			return FAIL;
+  		} else {
+    			adpt_arr->size = index+1;
+		}
+
+	}
 
 	if ((adpt_arr->size) <= index) {
 		PElement arrnew =(PElement)realloc(adpt_arr->arr, (index+1) * sizeof(PElement));
