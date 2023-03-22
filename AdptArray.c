@@ -23,7 +23,7 @@ PAdptArray CreateAdptArray(COPY_FUNC copy, DEL_FUNC del, PRINT_FUNC print) {
 		printf("memory error");
 		return NULL;
 	}
-
+	//initilizing an empty array
 	adpt_arr->arr = (PElement)calloc(4, sizeof(PElement));
 	if (adpt_arr->arr == NULL) {
 		printf("memory error");   
@@ -56,6 +56,7 @@ Result SetAdptArrayAt(PAdptArray adpt_arr, int index, PElement p_element) {
 		PElement arrnew =(PElement)realloc(adpt_arr->arr, (index+1) * sizeof(PElement));
 		
 		if (arrnew == NULL) {
+			
 			return FAIL;
 		}
 	 	
